@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
+from keras.models import load_model
 
 # Load the models and relevant information
 with open('hybrid_model.pkl', 'rb') as file:
@@ -11,7 +12,9 @@ with open('hybrid_model.pkl', 'rb') as file:
 # Access individual models
 rf_model = models_info['rf_model']
 xgb_model = models_info['xgb_model']
-lstm_model = models_info['lstm_model']
+# lstm_model = models_info['lstm_model']
+# Load the LSTM model
+lstm_model = load_model('lstm_model.h5')
 meta_model = models_info['meta_model']
 
 # Load the test set used during model building
