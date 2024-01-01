@@ -5,7 +5,7 @@ import numpy as np
 import altair as alt
 
 # Load the models and relevant information
-with open('C:/Users/User/Desktop/FYP/hybrid_model.pkl', 'rb') as file:
+with open('hybrid_model.pkl', 'rb') as file:
     models_info = pickle.load(file)
 
 # Access individual models
@@ -15,7 +15,7 @@ lstm_model = models_info['lstm_model']
 meta_model = models_info['meta_model']
 
 # Load the test set used during model building
-df = pd.read_csv('C:/Users/User/Desktop/FYP/all_data.csv')
+df = pd.read_csv('all_data.csv')
 
 # Combine year, month, and day to create a new 'Order Date' column
 df['Order Date'] = pd.to_datetime(df[['Year', 'Month', 'Day']]).dt.strftime('%Y-%m-%d')
