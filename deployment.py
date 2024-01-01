@@ -5,6 +5,14 @@ import numpy as np
 import altair as alt
 from keras.models import load_model
 
+from keras.models import model_from_json
+# Load the LSTM model architecture from the JSON file
+with open("lstm_model.json", "r") as json_file:
+    loaded_model_json = json_file.read()
+    lstm_model = model_from_json(loaded_model_json)
+# Load the LSTM model weights from the HDF5 file
+lstm_model.load_weights("lstm_model_weights.h5")
+
 # Load the models and relevant information
 with open('hybrid_model.pkl', 'rb') as file:
     models_info = pickle.load(file)
@@ -14,7 +22,7 @@ rf_model = models_info['rf_model']
 xgb_model = models_info['xgb_model']
 # lstm_model = models_info['lstm_model']
 # Load the LSTM model
-lstm_model = load_model('lstm_model.h5')
+# lstm_model = load_model('lstm_model.h5')
 meta_model = models_info['meta_model']
 
 # Load the test set used during model building
@@ -84,7 +92,7 @@ def main():
             # Make predictions using the individual models
             rf_preds = rf_model.predict(features_for_prediction)
             xgb_preds = xgb_model.predict(features_for_prediction)
-            
+
             # # Reshape the input data for LSTM prediction
             # features_for_prediction_reshaped = np.reshape(features_for_prediction.values, (features_for_prediction.shape[0], 1, features_for_prediction.shape[1]))
             # lstm_preds = lstm_model.predict(features_for_prediction_reshaped).flatten()
