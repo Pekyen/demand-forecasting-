@@ -84,9 +84,14 @@ def main():
             # Make predictions using the individual models
             rf_preds = rf_model.predict(features_for_prediction)
             xgb_preds = xgb_model.predict(features_for_prediction)
+            
+            # # Reshape the input data for LSTM prediction
+            # features_for_prediction_reshaped = np.reshape(features_for_prediction.values, (features_for_prediction.shape[0], 1, features_for_prediction.shape[1]))
+            # lstm_preds = lstm_model.predict(features_for_prediction_reshaped).flatten()
+
             # Reshape the input data for LSTM prediction
-            features_for_prediction_reshaped = np.reshape(features_for_prediction.values, (features_for_prediction.shape[0], 1, features_for_prediction.shape[1]))
-            lstm_preds = lstm_model.predict(features_for_prediction_reshaped).flatten()
+            features_for_lstm = features_for_prediction.values.reshape((features_for_prediction.shape[0], 1, features_for_prediction.shape[1]))
+            lstm_preds = lstm_model.predict(features_for_lstm).flatten()
             # lstm_preds = lstm_model.predict(np.reshape(features_for_prediction.values, (features_for_prediction.shape[0], 1, features_for_prediction.shape[1]))).flatten()
 
             # Stack predictions for the meta-model
