@@ -164,7 +164,7 @@ def main():
             st.altair_chart(chart, use_container_width=True)
 
         else:
-            st.warning(f"No data found for the selected date range, Original Market, and Department.")
+            st.warning(f"No data found for the selected date range, market, and department.")
 
 if __name__ == '__main__':
     main()
