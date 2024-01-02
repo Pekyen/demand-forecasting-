@@ -7,6 +7,6 @@
 
 scikit-learn==1.2.2
 numpy
-xgboost
-keras
+xgboost==1.7.6
+keras==2.12.0
 tensorflow
