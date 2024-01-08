@@ -12,8 +12,6 @@ with open('hybrid_model.pkl', 'rb') as file:
 # Access individual models
 rf_model = models_info['rf_model']
 xgb_model = models_info['xgb_model']
-# lstm_model = models_info['lstm_model']
-# Load the LSTM model
 lstm_model = load_model('lstm_model.h5')
 meta_model = models_info['meta_model']
 
@@ -117,27 +115,8 @@ def main():
             st.write("Predicted Values:")
             st.table(grouped_predictions)
 
-            # # Combine 'Market' and 'Department' into a single variable
-            # grouped_predictions['Market_Department'] = grouped_predictions['Market'] + ' - ' + grouped_predictions['Department']
-
-            # # Create a line chart for Actual vs Predicted Sales over time, with different lines for each market and department
-            # chart = alt.Chart(grouped_predictions).transform_fold(
-            #     ['Actual Sales', 'Predicted Sales'],
-            #     as_=['Variable', 'Value']
-            # ).mark_line().encode(
-            #     x='Order Date',
-            #     y='Value:Q',
-            #     color=alt.Color('Market_Department:N', scale=alt.Scale(scheme='category10')),  # Use a different color for each combined category
-            #     tooltip=['Order Date', 'Value:Q'],
-            #     facet=alt.Facet(columns=2),  # Display separate lines for each combined category
-            # ).properties(
-            #     width=800,
-            #     height=400,
-            #     title='Actual vs Predicted Sales Over Time by Market and Department'
-            # )
-
-            # # Display the chart
-            # st.altair_chart(chart, use_container_width=True)
+            # Combine 'Market' and 'Department' into a single variable
+            grouped_predictions['Market_Department'] = grouped_predictions['Market'] + ' - ' + grouped_predictions['Department']
 
             # Create a line chart for Actual vs Predicted Sales over time, with different lines for each market and department
             chart = alt.Chart(grouped_predictions).transform_fold(
@@ -146,9 +125,9 @@ def main():
             ).mark_line().encode(
                 x='Order Date',
                 y='Value:Q',
-                color=alt.Color('Market:N', scale=alt.Scale(scheme='category10')),  # Use a different color for each market
+                color=alt.Color('Market_Department:N', scale=alt.Scale(scheme='category10')),  # Use a different color for each combined category
                 tooltip=['Order Date', 'Value:Q'],
-                facet=alt.Facet('Department:N', columns=2)  # Display separate lines for each department
+                facet=alt.Facet(columns=2),  # Display separate lines for each combined category
             ).properties(
                 width=800,
                 height=400,
@@ -157,6 +136,25 @@ def main():
 
             # Display the chart
             st.altair_chart(chart, use_container_width=True)
+
+            # # Create a line chart for Actual vs Predicted Sales over time, with different lines for each market and department
+            # chart = alt.Chart(grouped_predictions).transform_fold(
+            #     ['Actual Sales', 'Predicted Sales'],
+            #     as_=['Variable', 'Value']
+            # ).mark_line().encode(
+            #     x='Order Date',
+            #     y='Value:Q',
+            #     color=alt.Color('Market:N', scale=alt.Scale(scheme='category10')),  # Use a different color for each market
+            #     tooltip=['Order Date', 'Value:Q'],
+            #     facet=alt.Facet('Department:N', columns=2)  # Display separate lines for each department
+            # ).properties(
+            #     width=800,
+            #     height=400,
+            #     title='Actual vs Predicted Sales Over Time by Market and Department'
+            # )
+
+            # # Display the chart
+            # st.altair_chart(chart, use_container_width=True)
 
         else:
             st.warning(f"No data found for the selected date range, market, and department.")
