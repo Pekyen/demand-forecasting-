@@ -140,5 +140,5 @@ def deployment():
         else:
             st.warning(f"No data found for the selected date range, market, and department.")
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
