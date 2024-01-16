@@ -1,14 +1,18 @@
 import streamlit as st
 from deployment import deployment
+from eda import eda
 
 def main():
     # Create a side menu with a dropdown
-    selected_page = st.sidebar.selectbox("Navigation", ["Home", "Prediction"], index=0)
+    selected_page = st.sidebar.selectbox("Navigation", ["Home", "EDA", "Prediction"], index=0)
 
     if selected_page == "Home":
         show_home()
+    elif selected_page == "EDA":
+        eda()
     elif selected_page == "Prediction":
         deployment()
+    
 
 def show_home():
     st.title("Demand Forecasting in Supply Chain Management Using Machine Learning")
