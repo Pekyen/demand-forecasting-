@@ -2,6 +2,12 @@ import streamlit as st
 from deployment import deployment
 from eda import eda
 
+# Set custom theme color
+st.set_page_config(page_title="Demand Forecasting", 
+                   page_icon="📊",
+                   initial_sidebar_state="collapsed", 
+                   layout="wide")
+
 def main():
     # Create a side menu with a dropdown
     selected_page = st.sidebar.selectbox("Navigation", ["Home", "EDA", "Prediction"], index=0)

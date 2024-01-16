@@ -2,11 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# Set custom theme color
-st.set_page_config(page_title="Exploratory Data Analysis", 
-                   page_icon="📊", 
-                   layout="wide")
-
 # Load data
 df = pd.read_csv('all_data.csv')
 
@@ -14,6 +9,7 @@ def combine_year_month(row):
     return f"{row['Year']}-{row['Month']:02d}"
 
 def eda():
+    st.title("Exploratory Data Analysis")
 
     # Combine 'Year' and 'Month' columns into a new column 'Year-Month'
     df['Year-Month'] = df.apply(combine_year_month, axis=1)
