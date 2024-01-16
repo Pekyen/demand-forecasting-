@@ -21,7 +21,7 @@ df = pd.read_csv('all_data.csv')
 # Combine year, month, and day to create a new 'Order Date' column
 df['Order Date'] = pd.to_datetime(df[['Year', 'Month', 'Day']]).dt.strftime('%Y-%m-%d')
 
-def main():
+def deployment():
     st.title('Demand Forecasting Prediction')
 
     # Convert 'Order Date' column to datetime type
