@@ -31,8 +31,8 @@ df = pd.read_csv('test.csv')
 def deployment():
     st.title('Demand Forecasting Prediction')
 
-    # # Convert 'Order Date' column to datetime type
-    # df['Order Date'] = pd.to_datetime(df['Order Date'])
+    # Convert 'Order Date' column to datetime type
+    df['Order Date'] = pd.to_datetime(df['Order Date'])
 
     # Allow the user to select the "Original Market" from the dataset
     market_options = np.append('All Markets', df['Original Market'].unique())
