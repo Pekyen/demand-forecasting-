@@ -6,26 +6,33 @@ import altair as alt
 from keras.models import load_model
 
 # Load the models and relevant information
-with open('hybrid_model.pkl', 'rb') as file:
+# # Previous hybrid model
+# with open('hybrid_model.pkl', 'rb') as file:
+#     models_info = pickle.load(file)
+
+with open('deployed_model.pkl', 'rb') as file:
     models_info = pickle.load(file)
 
 # Access individual models
 rf_model = models_info['rf_model']
 xgb_model = models_info['xgb_model']
-lstm_model = load_model('lstm_model.h5')
+lstm_model = models_info['lstm_model']
+# lstm_model = load_model('lstm_model.h5')
 meta_model = models_info['meta_model']
 
 # Load the test set used during model building
-df = pd.read_csv('all_data.csv')
+# df = pd.read_csv('all_data.csv')
 
-# Combine year, month, and day to create a new 'Order Date' column
-df['Order Date'] = pd.to_datetime(df[['Year', 'Month', 'Day']]).dt.strftime('%Y-%m-%d')
+df = pd.read_csv('test.csv')
+
+# # Combine year, month, and day to create a new 'Order Date' column
+# df['Order Date'] = pd.to_datetime(df[['Year', 'Month', 'Day']]).dt.strftime('%Y-%m-%d')
 
 def deployment():
     st.title('Demand Forecasting Prediction')
 
-    # Convert 'Order Date' column to datetime type
-    df['Order Date'] = pd.to_datetime(df['Order Date'])
+    # # Convert 'Order Date' column to datetime type
+    # df['Order Date'] = pd.to_datetime(df['Order Date'])
 
     # Allow the user to select the "Original Market" from the dataset
     market_options = np.append('All Markets', df['Original Market'].unique())
